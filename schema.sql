@@ -24,7 +24,7 @@ CREATE TABLE `services` (
 );
 
 CREATE TABLE `transactions` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `id` VARCHAR(20) PRIMARY KEY,
     `service_id` INT NOT NULL,
     `user_id` INT NOT NULL,
     `transaction_type` VARCHAR(255) NOT NULL,

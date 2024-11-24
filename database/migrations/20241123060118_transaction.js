@@ -5,7 +5,7 @@
 exports.up = function(knex) {
     return knex.schema
     .createTable('transactions', function(table) {
-      table.increments('id').primary();
+      table.string('invoice').primary();
       table.integer('service_id').notNullable().unsigned().index().references('id').inTable('services');
       table.integer('user_id').notNullable().unsigned().index().references('id').inTable('users');
       table.string('transaction_type', 255).notNullable();
