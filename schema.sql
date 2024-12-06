@@ -25,7 +25,7 @@ CREATE TABLE `services` (
 
 CREATE TABLE `transactions` (
     `id` VARCHAR(20) PRIMARY KEY,
-    `service_id` INT NOT NULL,
+    `service_id` INT,
     `user_id` INT NOT NULL,
     `transaction_type` VARCHAR(255) NOT NULL,
     `description` VARCHAR(255) NOT NULL,
