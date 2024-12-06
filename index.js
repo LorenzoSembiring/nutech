@@ -10,6 +10,8 @@ const port = process.env.PORT
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
+app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
 
 app.use('/', authRoute)
 app.use('/', userRoute)
