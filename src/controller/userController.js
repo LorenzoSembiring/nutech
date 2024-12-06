@@ -10,14 +10,19 @@ class UserController {
     try {
       const bearer = req.headers.authorization;
       const token = bearer.match(/^Bearer\s+(\S+)$/)[1];
+const url = process.env.IP || "http://localhost"; // Default fallback if IP is not set
+const data = jwt.verify(token, process.env.JWT_SECRET);
 
-      var data = jwt.verify(token, process.env.JWT_SECRET);
+if (data.user.profile_image) {
+  data.user.profile_image = `${url.replace(/\/+$/, '')}/${data.user.profile_image.replace(/^\/+/, '').replace(/\\/g, '/')}`;
+}
 
-      res.status(200).json({
-        code: 200,
-        status: "success",
-        message: data,
-      });
+res.status(200).json({
+  code: 200,
+  status: "success",
+  data: data.user,
+});
+
     } catch (error) {
       res.status(500).json({
         code: 500,
@@ -31,7 +36,6 @@ class UserController {
     const first_name = req.body.first_name;
     const last_name = req.body.last_name;
 
-    console.log(user.id);
     if (!first_name || !last_name) {
       return res
         .status(400)
