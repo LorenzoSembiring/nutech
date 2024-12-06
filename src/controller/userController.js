@@ -65,5 +65,26 @@ class UserController {
       });
     }
   };
+  picture = async (req, res, next) => {
+    const user = req.user;
+    const file = req.file;
+    try {
+            await knex.raw(
+        "update users set profile_image = :image where id = :id",
+        { image: file.path , id: user.id }
+      );
+      res.status(200).json({
+        code: 200,
+        status: "status",
+        message: file,
+      });
+    } catch (error) {
+      res.status(500).json({
+        code: 500,
+        status: "error",
+        message: error,
+      });
+    }
+  }
 }
 module.exports = UserController;
